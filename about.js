@@ -32,10 +32,13 @@ document.addEventListener('DOMContentLoaded', function(){
          img.setAttribute('src', car.img);
 
         }else{
-            window.location.assign('http://127.0.0.1:5500/index.html');
+            let domain = window.location.href.substring(0, window.location.href.search('about'));
+            window.location.assign(`${domain}index.html`);
     }
      }else{
-        window.location.assign('http://127.0.0.1:5500/index.html');
+        let domain = window.location.href.substring(0, window.location.href.search('about'));
+        window.location.assign(`${domain}index.html`);
+               
     }
 });
 
@@ -45,7 +48,8 @@ del && del.addEventListener('click', function(){
     let data = getData();
      data = data.filter(el => el.id!= elId);
      localStorage.setItem('cars', JSON.stringify(data));
-     window.location.assign('http://127.0.0.1:5500/index.html');
+     let domain = window.location.href.substring(0, window.location.href.search('about'));
+       window.location.assign(`${domain}index.html`);
   }
 });
 

@@ -1,17 +1,13 @@
 import { getData } from "./functions.js";
 
 document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const carId = urlParams.get('id');
+    let elId;  // Declare elId outside the if block
 
-    
-    if (!carId) {
-        
-        window.location.assign('http://127.0.0.1:5500/index.html');
-        return;
+    let urlIndex = window.location.href.search('id=');
+    if(urlIndex > 0) {
+        elId = window.location.href.substring(urlIndex + 3);
     }
 
-    
     const form = document.getElementById('form');
     const nameInput = document.getElementById('name');
     const imgInput = document.getElementById('img');
@@ -22,10 +18,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const yearInput = document.getElementById('year');
     const button = document.getElementById('button');
 
-    
     const cars = getData();
-    const car = cars.find(el => el.id == carId);
-
+    const car = cars.find(el => el.id == elId);
 
     nameInput.value = car.name;
     imgInput.value = car.img;
@@ -35,11 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
     colorSelect.value = car.color;
     yearInput.value = car.year;
 
-    
     button && button.addEventListener('click', function (e) {
         e.preventDefault();
 
-        
         car.name = nameInput.value;
         car.img = imgInput.value;
         car.price = priceInput.value;
@@ -48,11 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
         car.color = colorSelect.value;
         car.year = yearInput.value;
 
-        
         const updatedCars = cars.map(el => (el.id === car.id ? car : el));
         localStorage.setItem('cars', JSON.stringify(updatedCars));
 
-    
-        window.location.assign('http://127.0.0.1:5500/index.html');
+        let domain = window.location.href.substring(0, window.location.href.search('update'));
+        window.location.assign(`${domain}about.html?id=${elId}`);
     });
 });
+

@@ -37,8 +37,6 @@ let card = createCard(car);
 dataWrapper.innerHTML += card;
 
 form.reset();
-}else{
-    console.log('Validation failed');
 }
 });
 
